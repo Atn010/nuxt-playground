@@ -17,6 +17,11 @@ html {
   box-sizing: border-box;
 }
 
+.global-sizing {
+  justify-content: center;
+  align-items: center;
+}
+
 *,
 *:before,
 *:after {
