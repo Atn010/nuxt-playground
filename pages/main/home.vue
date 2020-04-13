@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Home</h1>
     <p>Here is some information. This is the home page</p>

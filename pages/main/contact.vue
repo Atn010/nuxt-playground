@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Contact Me</h1>
     <p>

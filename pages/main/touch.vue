@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Touch</h1>
     <p>Put Interaction here</p>

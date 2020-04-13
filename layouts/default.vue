@@ -18,8 +18,9 @@ html {
 }
 
 .global-sizing {
-  justify-content: center;
-  align-items: center;
+  widows: auto;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 *,

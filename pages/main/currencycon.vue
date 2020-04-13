@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Currency Convertion</h1>
     <p>Convert Currency</p>
@@ -11,6 +11,13 @@
       Error while fetching Exchange Rate: {{ $fetchState.error.message }}
     </p>
     <ul v-else>
+      <List
+        :current="selectedCurrency"
+        :currencies="Currency"
+        :data="data"
+        :amount="userInput"
+      />
+      <br><br><br>
       <li v-for="(value, key) of data.rates" :key="key">
         {{ key }} : {{ value }}
       </li>
@@ -20,16 +27,21 @@
 
 <script>
 import NavigationBar from '~/components/Navigation.vue'
+import List from '~/components/List.vue'
 export default {
   components: {
-    NavigationBar
+    NavigationBar,
+    List
   },
   async fetch () {
     this.data = await this.$http.$get('https://api.exchangeratesapi.io/latest?base=USD')
   },
   data () {
     return {
-      data: []
+      data: [],
+      Currency: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
+      userInput: 10000,
+      selectedCurrency: 'USD'
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Blog posts</h1>
     <p v-if="$fetchState.pending">Fetching posts...</p>

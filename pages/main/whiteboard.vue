@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-sizing">
     <NavigationBar />
     <h1>Whiteboard</h1>
     <p>Have fun and draw something</p>
