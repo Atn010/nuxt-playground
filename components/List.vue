@@ -2,9 +2,14 @@
   <div>
     <ul v-for="(item, index) in currencies" :key="index">
       <li>
-        {{ item }} - {{ amount * data.rates[item] }}
         <br>
-        1 {{ current }} = {{ item }} {{ data.rates[item] }}
+        <Row
+          :current="current"
+          :currency="item"
+          :rate="data.rates[item]"
+          :amount="amount"
+        />
+        <br>
       </li>
       <br>
     </ul>
@@ -12,7 +17,12 @@
 </template>
 
 <script>
+import Row from '~/components/row.vue'
+
 export default {
+  components: {
+    Row
+  },
   props: {
     current: {
       type: String,
@@ -29,9 +39,6 @@ export default {
     amount: {
       type: Number,
       default: 1
-    },
-    mounted () {
-      console.log(this.data)
     }
   }
 }
