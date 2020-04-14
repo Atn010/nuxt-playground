@@ -3,43 +3,34 @@
     <NavigationBar />
     <h1>Currency Convertion</h1>
     <p>Convert Currency</p>
-    <p v-if="$fetchState.pending">
-      Fetching Exchange Rate...
-    </p>
-    <p v-else-if="$fetchState.error">
-      Error while fetching Exchange Rate: {{ $fetchState.error.message }}
-    </p>
-    <ul v-else>
-      <div>
-        <div class="dropdown">
-          <button class="dropbtn">
-            Dropdown
-          </button>
-          <div class="dropdown-content">
-            <button v-for="(value, index) of currencyDataList" :key="index" @click="updateSelectedCurrency(value)">
+    <div>
+      <div class="dropdown">
+        <button class="dropbtn">
+          Dropdown
+        </button>
+        <div class="dropdown-content">
+          <div v-for="(value, index) of currencyDataList" :key="index">
+            <button @click="updateSelectedCurrency(value)">
               {{ value }}
             </button>
           </div>
         </div>
-        <div>
-          <input v-model="userInput" placeholder="10000" name="userInput" type="number">
-        </div>
       </div>
-      <List
-        :current="selectedCurrency"
-        :currencies="Currency"
-        :data="data"
-        :amount="userInput"
-      />
-      <br><br><br>
-      <li v-for="(value, key) of data.rates" :key="key">
-        {{ key }} : {{ value }}
-      </li>
-    </ul>
+      <div>
+        <input v-model="userInput" placeholder="10000" name="userInput" type="number">
+      </div>
+    </div>
+    <list
+      :current="selectedCurrency"
+      :currencies="Currency"
+      :amount="userInput"
+      @clicked="updateCurrencyDataList(Object)"
+    />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import NavigationBar from '~/components/Navigation.vue'
 import List from '~/components/List.vue'
 export default {
@@ -47,24 +38,37 @@ export default {
     NavigationBar,
     List
   },
-  async fetch () {
-    this.data = await this.$http.$get('https://api.exchangeratesapi.io/latest?base=' + this.selectedCurrency)
-
-    this.updateCurrencyDataList(this.data)
+  asyncData () {
+    return axios
+      .get('https://api.exchangeratesapi.io/latest?base=' + 'USD')
+      .then((result) => {
+        return {
+          exchange: Object.keys(result.data.rates)
+        }
+      })
   },
   data () {
     return {
       data: [],
-      currencyDataList: ['USD'],
+      currencyDataList: ['USD', 'SGD', 'EUR'],
       Currency: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
       userInput: 10000,
-      selectedCurrency: 'USD'
+      selectedCurrency: 'USD',
+      incomingList: []
+    }
+  },
+  watch: {
+    incomingList (newVal, oldVal) { // watch it
+      console.log('Trying To Emit something to parent3')
     }
   },
   methods: {
     updateCurrencyDataList (incomingData) {
+      console.log('Trying To Emit something to parent2')
       for (const key in incomingData.rates) {
-        this.currencyDataList.push({ key })
+        if (!this.currencyDataList.includes(key)) {
+          this.currencyDataList.push(key)
+        }
       }
     },
     updateSelectedCurrency (data) {
@@ -102,7 +106,8 @@ export default {
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 16px;
+  text-align: center;
   text-decoration: none;
   display: block;
 }
