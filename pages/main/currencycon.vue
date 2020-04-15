@@ -17,7 +17,7 @@
         </div>
       </div>
       <div>
-        <input v-model="userInput" placeholder="10000" name="userInput" type="number">
+        <input v-model="userInput" placeholder="1" name="userInput" type="number">
       </div>
     </div>
     <list
@@ -40,8 +40,8 @@ export default {
   data () {
     return {
       data: [],
-      currencyDataList: ['USD', 'SGD', 'EUR'],
-      userInput: 10000,
+      currencyDataList: ['USD'],
+      userInput: 1,
       selectedCurrency: 'USD'
     }
   },

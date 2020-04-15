@@ -6,7 +6,9 @@
       1 {{ current }} = {{ currency }} {{ rate }}
     </div>
     <div class="removeButton">
-      <button>X</button>
+      <button @click="removeCurrency">
+        X
+      </button>
     </div>
     <div class="rightBox">
       {{ rate * amount }}
@@ -32,6 +34,11 @@ export default {
     amount: {
       type: Number,
       default: 1
+    }
+  },
+  methods: {
+    removeCurrency () {
+      this.$emit('emitRemoval', this.currency)
     }
   }
 }

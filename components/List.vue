@@ -15,6 +15,7 @@
             :currency="item"
             :rate="data.rates[item]"
             :amount="amount"
+            @emitRemoval="removeCurrency"
           />
         </li>
         <br>
@@ -52,7 +53,7 @@ export default {
   data () {
     return {
       data: [],
-      displayCurrencyList: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
+      displayCurrencyList: ['USD', 'IDR'],
       choiceList: []
     }
   },
@@ -78,7 +79,14 @@ export default {
     },
     generateNewChoice () {
       console.log('Making new list3')
-      this.choiceList = this.currencies.filters(this.displayCurrencyList)
+      this.choiceList = this.currencies
+      this.choiceList.filter(data => this.currencies.includes(this.displayCurrencyList))
+      console.log('Making new list Result: ' + this.choiceList)
+    },
+    removeCurrency (data) {
+      console.log('Removing Stuff ' + data)
+      this.displayCurrencyList.filter(function (value, index) { return value === data })
+      // .filters(data)
     }
   }
 }
