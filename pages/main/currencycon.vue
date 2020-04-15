@@ -38,15 +38,6 @@ export default {
     NavigationBar,
     List
   },
-  asyncData () {
-    return axios
-      .get('https://api.exchangeratesapi.io/latest?base=' + 'USD')
-      .then((result) => {
-        return {
-          exchange: Object.keys(result.data.rates)
-        }
-      })
-  },
   data () {
     return {
       data: [],
@@ -58,7 +49,6 @@ export default {
   },
   methods: {
     updateCurrencyDataList (incomingData) {
-      console.log('Trying To Emit something to parent2')
       for (const key in incomingData.rates) {
         if (!this.currencyDataList.includes(key)) {
           this.currencyDataList.push(key)

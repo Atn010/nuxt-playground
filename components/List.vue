@@ -56,15 +56,16 @@ export default {
     }
   },
   watch: {
-    current (newVal, oldVal) { // watch it
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-      this.$forceUpdate()
+    current (newVal, oldVal) {
+      this.fetchAgain()
     }
   },
   methods: {
     emitAvailableCurrencyListUpdate (incomingData) {
-      console.log('Trying To Emit something to parent')
       this.$emit('emitRawData', incomingData)
+    },
+    async fetchAgain () {
+      this.data = await this.$http.$get('https://api.exchangeratesapi.io/latest?base=' + this.current)
     }
   }
 }
