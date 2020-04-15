@@ -24,7 +24,7 @@
       :current="selectedCurrency"
       :currencies="Currency"
       :amount="userInput"
-      @clicked="updateCurrencyDataList(Object)"
+      @emitRawData="updateCurrencyDataList"
     />
   </div>
 </template>
@@ -53,13 +53,7 @@ export default {
       currencyDataList: ['USD', 'SGD', 'EUR'],
       Currency: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
       userInput: 10000,
-      selectedCurrency: 'USD',
-      incomingList: []
-    }
-  },
-  watch: {
-    incomingList (newVal, oldVal) { // watch it
-      console.log('Trying To Emit something to parent3')
+      selectedCurrency: 'USD'
     }
   },
   methods: {

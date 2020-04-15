@@ -64,7 +64,7 @@ export default {
   methods: {
     emitAvailableCurrencyListUpdate (incomingData) {
       console.log('Trying To Emit something to parent')
-      this.$emit('incomingList', incomingData)
+      this.$emit('emitRawData', incomingData)
     }
   }
 }
