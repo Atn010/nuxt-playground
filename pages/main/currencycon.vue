@@ -6,7 +6,7 @@
     <div>
       <div class="dropdown">
         <button class="dropbtn">
-          Dropdown
+          {{ selectedCurrency }}
         </button>
         <div class="dropdown-content">
           <div v-for="(value, index) of currencyDataList" :key="index">
@@ -59,7 +59,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="css" scoped>
 .dropbtn {
   background-color: #4CAF50;
   color: white;
