@@ -98,9 +98,10 @@ export default {
       console.log('Making new list Result: ' + this.choiceList)
     },
     removeCurrency (data) {
-      console.log('Removing Stuff ' + data)
-      this.displayCurrencyList.filter(function (value, index) { return value === data })
-      // .filters(data)
+      this.displayCurrencyList = this.displayCurrencyList.filter(
+        function (value, index) {
+          return value !== data
+        })
     },
     addDisplayCurrency (data) {
       this.displayCurrencyList.push(data)
