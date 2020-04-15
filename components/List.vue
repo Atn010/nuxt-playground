@@ -7,7 +7,7 @@
       Error while fetching Exchange Rate: {{ $fetchState.error.message }}
     </p>
     <ul v-else>
-      <ul v-for="(item, index) in currencies" :key="index">
+      <ul v-for="(item, index) in displayCurrencyList" :key="index">
         <li>
           <br>
           <Row
@@ -16,7 +16,6 @@
             :rate="data.rates[item]"
             :amount="amount"
           />
-          <br>
         </li>
         <br>
       </ul>
@@ -52,12 +51,22 @@ export default {
   },
   data () {
     return {
-      data: []
+      data: [],
+      displayCurrencyList: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
+      choiceList: []
     }
   },
   watch: {
     current (newVal, oldVal) {
       this.fetchAgain()
+    },
+    displayCurrencyList () {
+      console.log('Making new list1')
+      this.generateNewChoice()
+    },
+    currencies () {
+      console.log('Making new list2')
+      this.generateNewChoice()
     }
   },
   methods: {
@@ -66,6 +75,10 @@ export default {
     },
     async fetchAgain () {
       this.data = await this.$http.$get('https://api.exchangeratesapi.io/latest?base=' + this.current)
+    },
+    generateNewChoice () {
+      console.log('Making new list3')
+      this.choiceList = this.currencies.filters(this.displayCurrencyList)
     }
   }
 }

@@ -22,7 +22,7 @@
     </div>
     <list
       :current="selectedCurrency"
-      :currencies="Currency"
+      :currencies="currencyDataList"
       :amount="userInput"
       @emitRawData="updateCurrencyDataList"
     />
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import NavigationBar from '~/components/Navigation.vue'
 import List from '~/components/List.vue'
 export default {
@@ -42,7 +41,6 @@ export default {
     return {
       data: [],
       currencyDataList: ['USD', 'SGD', 'EUR'],
-      Currency: ['SGD', 'IDR', 'EUR', 'MYR', 'USD'],
       userInput: 10000,
       selectedCurrency: 'USD'
     }
