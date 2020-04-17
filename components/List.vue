@@ -23,7 +23,7 @@
     </ul>
     <br>
     <br>
-    <div class="dropdown">
+    <div v-if="choiceList.length > 0" class="dropdown">
       <button class="dropbtn">
         Add More
       </button>
@@ -76,11 +76,10 @@ export default {
       this.fetchAgain()
     },
     displayCurrencyList () {
-      console.log('Making new list1')
       this.generateNewChoice()
     },
     currencies () {
-      console.log('Making new list2')
+      this.currencies.sort()
       this.generateNewChoice()
     }
   },
@@ -92,10 +91,16 @@ export default {
       this.data = await this.$http.$get('https://api.exchangeratesapi.io/latest?base=' + this.current)
     },
     generateNewChoice () {
-      console.log('Making new list3')
       this.choiceList = this.currencies
-      this.choiceList.filter(data => this.currencies.includes(this.displayCurrencyList))
-      console.log('Making new list Result: ' + this.choiceList)
+
+      for (const key in this.displayCurrencyList) {
+        const value = this.displayCurrencyList[key]
+
+        this.choiceList = this.choiceList.filter(
+          function (item, index) {
+            return item !== value
+          })
+      }
     },
     removeCurrency (data) {
       this.displayCurrencyList = this.displayCurrencyList.filter(

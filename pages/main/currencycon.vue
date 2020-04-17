@@ -52,6 +52,7 @@ export default {
           this.currencyDataList.push(key)
         }
       }
+      this.currencyDataList.sort()
     },
     updateSelectedCurrency (data) {
       this.selectedCurrency = data
